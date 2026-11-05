@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <title>Registro | Verify-Bot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+  </head>
+  <body>
+    <main class="form-shell">
+      <a class="back-link" href="/">← <span>Volver al inicio</span></a>
+      <section class="form-card">
+        <div class="form-heading">
+          <img class="mini-mark" src="/logo.png" alt="Verify-Bot" />
+          <p class="eyebrow">VERIFY-BOT</p>
+          <h1>Crea tu cuenta</h1>
+          <p class="form-description">Completa tus datos para comenzar.</p>
+        </div>
+        <form id="registro-form" class="form-grid">
+          <label class="field field-full">
+            <span>Nombre completo</span>
+            <input name="nombre_completo" type="text" autocomplete="name" placeholder="Tu nombre y apellidos" required />
+          </label>
+          <label class="field">
+            <span>Tipo de usuario</span>
+            <input name="tipo_usuario" type="text" placeholder="Ej. estudiante" required />
+          </label>
+          <label class="field">
+            <span>Matrícula</span>
+            <input name="matricula" type="text" placeholder="Tu matrícula" required />
+          </label>
+          <label class="field">
+            <span>Nivel de estudios</span>
+            <input name="nivel_estudios" type="text" placeholder="Ej. bachillerato" required />
+          </label>
+          <label class="field">
+            <span>Área de enseñanza</span>
+            <input name="area_ensenanza" type="text" placeholder="Tu área de enseñanza" required />
+          </label>
+          <label class="field field-full">
+            <span>Correo electrónico</span>
+            <input name="correo" type="email" autocomplete="email" placeholder="tu@correo.com" required />
+          </label>
+          <label class="field field-full">
+            <span>Contraseña</span>
+            <input name="contrasena" type="password" autocomplete="new-password" minlength="6" placeholder="Mínimo 6 caracteres" required />
+          </label>
+          <p class="privacy-note field-full">
+            Tu contraseña se protege con Firebase Authentication; no se guarda en la base de datos de perfiles.
+          </p>
+          <button class="button button-primary field-full" type="submit">Crear cuenta <span aria-hidden="true">→</span></button>
+          <p id="registro-status" class="form-status field-full" role="status" aria-live="polite"></p>
+        </form>
+        <p class="form-switch">¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a></p>
+      </section>
+      <p class="page-caption">TUS DATOS, EN UN SOLO LUGAR.</p>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

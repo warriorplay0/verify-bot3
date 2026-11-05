@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7fb" />
+    <title>Iniciar sesión | Verify-Bot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+  </head>
+  <body>
+    <main class="form-shell login-shell">
+      <a class="back-link" href="/">← <span>Volver al inicio</span></a>
+      <section class="form-card login-card">
+        <div class="form-heading">
+          <img class="mini-mark" src="/logo.png" alt="Verify-Bot" />
+          <p class="eyebrow">VERIFY-BOT</p>
+          <h1>Qué bueno verte</h1>
+          <p class="form-description">Inicia sesión para continuar.</p>
+        </div>
+        <form id="login-form" class="form-grid login-form">
+          <label class="field field-full">
+            <span>Correo electrónico</span>
+            <input name="correo" type="email" autocomplete="email" placeholder="tu@correo.com" required />
+          </label>
+          <label class="field field-full">
+            <span>Contraseña</span>
+            <input name="contrasena" type="password" autocomplete="current-password" placeholder="Tu contraseña" required />
+          </label>
+          <button class="button button-primary field-full" type="submit">Iniciar sesión <span aria-hidden="true">→</span></button>
+          <p id="login-status" class="form-status field-full" role="status" aria-live="polite"></p>
+        </form>
+        <p class="form-switch">¿Aún no tienes cuenta? <a href="/registro.html">Regístrate</a></p>
+      </section>
+      <p class="page-caption">TUS DATOS, EN UN SOLO LUGAR.</p>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

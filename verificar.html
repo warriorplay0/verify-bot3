@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8fc" />
+    <meta
+      name="description"
+      content="Analiza textos, enlaces y documentos para contrastar información."
+    />
+    <title>Verificar información | Verify-Bot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <link rel="stylesheet" href="/src/dashboard.css" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+  </head>
+  <body class="dashboard-body">
+    <header class="dashboard-header">
+      <a class="dashboard-brand" href="/verificar.html" aria-label="Verify-Bot, inicio">
+        <img class="dashboard-mark" src="/logo.png" alt="" />
+        <span>Verify<span class="brand-dash">-</span>Bot</span>
+      </a>
+      <div class="header-account">
+        <span id="account-email" class="account-email"></span>
+        <button id="account-button" class="account-button" type="button">Mi cuenta</button>
+        <button id="logout-button" class="logout-button" type="button">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <dialog id="account-dialog" class="account-dialog" aria-labelledby="account-dialog-title">
+      <div class="account-dialog-heading">
+        <div>
+          <p class="eyebrow">VERIFY-BOT</p>
+          <h2 id="account-dialog-title">Mi cuenta</h2>
+        </div>
+        <button id="account-close" class="account-close" type="button" aria-label="Cerrar">×</button>
+      </div>
+      <p id="account-status" class="account-status" role="status" aria-live="polite"></p>
+      <dl id="account-details" class="account-details" hidden>
+        <div><dt>Nombre completo</dt><dd id="account-name"></dd></div>
+        <div><dt>Tipo de usuario</dt><dd id="account-type"></dd></div>
+        <div><dt>Matrícula</dt><dd id="account-enrollment"></dd></div>
+        <div><dt>Nivel de estudios</dt><dd id="account-level"></dd></div>
+        <div><dt>Área de enseñanza</dt><dd id="account-area"></dd></div>
+        <div><dt>Correo electrónico</dt><dd id="account-profile-email"></dd></div>
+        <div><dt>Fecha de registro</dt><dd id="account-registered"></dd></div>
+      </dl>
+    </dialog>
+
+    <main class="dashboard-main">
+      <section class="dashboard-intro">
+        <p class="eyebrow">TU ESPACIO DE VERIFICACIÓN</p>
+        <h1>Escaneamos datos,<br />verificamos <span>verdades.</span></h1>
+        <p>Comparte texto, enlaces o PDF: cada envío quedará guardado en una conversación privada.</p>
+      </section>
+
+      <section class="dashboard-grid" aria-label="Verificación de información">
+        <aside class="history-column" aria-label="Historial de conversaciones">
+          <div class="history-heading">
+            <div>
+              <p class="eyebrow">TU ESPACIO</p>
+              <h2>Conversaciones</h2>
+            </div>
+            <button id="new-conversation" class="new-conversation" type="button" aria-label="Nueva conversación">+</button>
+          </div>
+          <p id="history-status" class="history-status" role="status" aria-live="polite"></p>
+          <div id="conversation-list" class="conversation-list">
+            <p class="history-empty">Tus conversaciones guardadas aparecerán aquí.</p>
+          </div>
+          <p class="history-privacy">Tu historial es privado y se guarda en tu cuenta. Puedes eliminar cada conversación cuando quieras.</p>
+        </aside>
+
+        <div class="workspace-column">
+          <div class="conversation-bar">
+            <div>
+              <p class="eyebrow">CONVERSACIÓN ACTUAL</p>
+              <h2 id="conversation-title">Nueva conversación</h2>
+            </div>
+            <span class="conversation-state"><span class="state-dot"></span> Guardado privado</span>
+          </div>
+
+          <section id="conversation-thread" class="result-card conversation-thread" aria-label="Mensajes de la conversación" aria-live="polite">
+            <div id="conversation-empty" class="empty-result">
+              <span class="empty-result-icon" aria-hidden="true">✳</span>
+              <h3>¿Qué información quieres verificar?</h3>
+              <p>Escribe un texto, comparte un enlace o adjunta un PDF. Lo que envíes se guardará en esta conversación.</p>
+            </div>
+          </section>
+
+          <section class="input-card" aria-labelledby="input-heading">
+            <div class="section-title">
+              <span class="section-icon input-icon" aria-hidden="true">⌕</span>
+              <div>
+                <p class="eyebrow">NUEVO MENSAJE</p>
+                <h2 id="input-heading">Añade contenido a la conversación</h2>
+              </div>
+            </div>
+
+            <div class="source-tabs" role="tablist" aria-label="Tipo de contenido">
+              <button
+                id="tab-text"
+                class="source-tab is-active"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="panel-text"
+                data-source="text"
+              >
+                <span aria-hidden="true">¶</span> Texto
+              </button>
+              <button
+                id="tab-url"
+                class="source-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-url"
+                data-source="url"
+              >
+                <span aria-hidden="true">↗</span> URL
+              </button>
+              <button
+                id="tab-pdf"
+                class="source-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-pdf"
+                data-source="pdf"
+              >
+                <span aria-hidden="true">▤</span> PDF
+              </button>
+            </div>
+
+            <form id="analysis-form">
+              <section id="panel-text" class="source-panel" role="tabpanel" aria-labelledby="tab-text">
+                <label class="sr-only" for="analysis-text">Texto o afirmación para analizar</label>
+                <textarea
+                  id="analysis-text"
+                  name="text"
+                  rows="6"
+                  maxlength="12000"
+                  placeholder="Escribe aquí la afirmación o el texto que quieres contrastar…"
+                ></textarea>
+                <div class="input-meta">
+                  <span>Evita incluir contraseñas o datos personales.</span>
+                  <span id="text-count">0 / 12,000</span>
+                </div>
+              </section>
+
+              <section
+                id="panel-url"
+                class="source-panel"
+                role="tabpanel"
+                aria-labelledby="tab-url"
+                hidden
+              >
+                <label class="field" for="analysis-url">
+                  <span>Enlace a la página</span>
+                  <input
+                    id="analysis-url"
+                    name="url"
+                    type="url"
+                    placeholder="https://ejemplo.com/articulo"
+                    autocomplete="url"
+                  />
+                </label>
+                <p class="source-hint">Se guardará la dirección que compartas, no una copia del sitio.</p>
+              </section>
+
+              <section
+                id="panel-pdf"
+                class="source-panel"
+                role="tabpanel"
+                aria-labelledby="tab-pdf"
+                hidden
+              >
+                <label id="pdf-dropzone" class="upload-zone" for="analysis-pdf">
+                  <span class="upload-icon" aria-hidden="true">↑</span>
+                  <span class="upload-title">Selecciona un PDF</span>
+                  <span class="upload-description">o arrástralo aquí · hasta 15 MB</span>
+                  <input
+                    id="analysis-pdf"
+                    name="pdf"
+                    type="file"
+                    accept="application/pdf,.pdf"
+                    hidden
+                  />
+                </label>
+                <div id="selected-file" class="selected-file" hidden>
+                  <span class="file-icon" aria-hidden="true">PDF</span>
+                  <span id="file-name" class="file-name"></span>
+                  <button id="remove-file" class="remove-file" type="button" aria-label="Quitar PDF">
+                    Quitar
+                  </button>
+                </div>
+                <p class="source-hint">Al enviar, el PDF se subirá a Firebase Storage para conservarlo en el historial.</p>
+              </section>
+
+              <p id="analysis-input-status" class="form-status" role="status" aria-live="polite"></p>
+              <button id="analyze-button" class="button button-primary analyze-button" type="submit">
+                <span aria-hidden="true">↗</span> Verificar y guardar
+              </button>
+            </form>
+          </section>
+        </div>
+
+        <aside class="summary-column" aria-label="Estado del análisis">
+          <section class="summary-card">
+            <div class="summary-heading">
+              <h2>Estado del análisis</h2>
+            </div>
+            <dl class="summary-list">
+              <div><dt>Historial</dt><dd>Privado</dd></div>
+              <div><dt>Textos y enlaces</dt><dd>Realtime DB</dd></div>
+              <div><dt>Archivos PDF</dt><dd>Storage</dd></div>
+              <div><dt>Proveedor IA</dt><dd>Groq</dd></div>
+            </dl>
+            <p class="summary-note">Los mensajes se guardan en tu cuenta. Los archivos PDF se suben al almacenamiento seguro de Firebase.</p>
+          </section>
+
+          <section class="notice-card">
+            <span class="notice-icon" aria-hidden="true">✳</span>
+            <div>
+              <h2>Una verificación responsable</h2>
+              <p>Groq contrastará la información con páginas web confiables mediante Tavily. El texto enviado se usará como consulta de búsqueda. En PDF escaneados leerá visualmente las primeras 3 páginas.</p>
+            </div>
+          </section>
+        </aside>
+      </section>
+      <footer class="dashboard-footer">VERIFY-BOT <span>·</span> INFORMACIÓN PARA PENSAR MEJOR</footer>
+    </main>
+    <script type="module" src="/src/dashboard.js"></script>
+  </body>
+</html>
